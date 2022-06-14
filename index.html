@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh_TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="sc__wrapper">
+        <!-- scratchcard -->
+        <div id="js--sc--container" class="sc__container">
+            <!-- background image insert here by scratchcard-js -->
+            <!-- canvas generate here -->
+        </div>
+        <!-- infos -->
+        <div class="sc__infos">
+            <!-- percent -->
+        </div>
+    </div>
+
+
+    <script src="./scratchcard.min.js"></script>
+    <script>
+        const scContainer = document.getElementById('js--sc--container')
+        const scInfos = document.querySelector('.sc__infos');
+        const sc = new ScratchCard('#js--sc--container', {
+            scratchType: SCRATCH_TYPE.LINE,
+            containerWidth: scContainer.offsetWidth,
+            containerHeight: 300,
+            imageForwardSrc: './imageForwardSrc.jpg',
+            imageBackgroundSrc: './imageBackgroundSrc.jpg',
+            htmlBackground: '',
+            clearZoneRadius: 20,
+            nPoints: 0,
+            pointSize: 0,
+            callback: function () {
+                alert('Now the window will reload !')
+                window.location.reload()
+            }
+        })
+
+        // Init
+        sc.init().then(() => {
+            console.log(sc.ctx)
+            // sc.canvas.addEventListener('scratch.move', () => {
+            //     let percent = sc.getPercent().toFixed(0);
+            //     scInfos.innerHTML = percent + '%';
+            //     console.log(percent)
+            // })
+
+           sc.ctx.fillStyle = "#A9A9A9";
+           sc.ctx.fillRect(0, 0, 300, 300);
+        }).catch((error) => {
+            // image not loaded
+            alert(error.message);
+        });
+    </script>
+</body>
+
+</html>
